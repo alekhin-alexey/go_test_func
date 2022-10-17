@@ -1,0 +1,50 @@
+package main
+
+import (
+	"fmt"
+	"sort"
+	"strconv"
+)
+
+func computeAndSortChar(text string) string {
+	/*
+		Task condition: text = [A-Z][a-z][А-Я][а-я]
+	*/
+
+	ABC := map[string]int{} // map [ key: Char, value: Count char in text ]
+	Result := ""
+
+	for _, ch := range []rune(text) { // add []rune for Cyrillic chars
+		currentChar := string(ch)
+		ABC[currentChar] = ABC[currentChar] + 1
+	}
+	
+	//fmt.Println(ABC)
+	
+	// ... sorting keys of ABC ...
+	keys := make([]string, 0, len(ABC))
+	for k := range ABC {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, k := range keys {
+		//fmt.Print(k, ABC[k])
+		Result += k + strconv.Itoa(ABC[k])		
+	}
+	return Result
+}
+
+func main() {
+
+	var imputString string
+	
+	// fmt.Println("Введите строку?")
+	// fmt.Scanf("%s\n", &imputString)
+	
+	imputString="ггггffghghhTTTTDDDDFFFFяяККККоооо"
+	
+	//fmt.Println(imputString)
+	fmt.Println(computeAndSortChar(imputString))
+	
+}
